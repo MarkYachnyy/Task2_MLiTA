@@ -12,12 +12,16 @@ public class LinearEquationSystem {
 
         long determinant = Matrix.determinant(Matrix.removeColumn(expanded_matrix, expanded_matrix[0].length));
 
-        if(determinant == 0) return null;
-
         double[] res = new double[expanded_matrix.length];
 
         for (int i = 0; i < res.length; i++) {
-            res[i] = Matrix.determinant(matrixForVariable(i + 1)) * 1.0 / determinant;
+            double matrix_i = Matrix.determinant(matrixForVariable(i + 1));
+            if(determinant != 0) {
+                res[i] = matrix_i / determinant;
+                continue;
+            }
+            if(matrix_i != 0) return null;
+            res[i] = Double.POSITIVE_INFINITY;
         }
 
         return res;
