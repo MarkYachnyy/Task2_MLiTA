@@ -1,7 +1,5 @@
 package ru.vsu.cs.yachnyy_m_a.task2_mlita;
 
-import ru.vsu.cs.yachnyy_m_a.task2_mlita.LinearEquationSystem;
-import ru.vsu.cs.yachnyy_m_a.task2_mlita.Main;
 import ru.vsu.cs.yachnyy_m_a.task2_mlita.util.ArrayUtils;
 
 import javax.swing.*;
@@ -16,6 +14,7 @@ public class FormMain extends JFrame {
     private JButton ButtonSolveSystem;
     private JLabel LabelAnswer;
     private JTextArea TextAreaSystem;
+    private JButton ButtonWriteMatrixManually;
 
     private JFileChooser InputFileChooser;
 
@@ -52,6 +51,13 @@ public class FormMain extends JFrame {
                         mapToObj(i -> "x" + (i + 1) + " = " + (solution[i] % 1 == 0 ? String.valueOf((int) solution[i]) : solution[i])).
                         collect(Collectors.joining("; ")));
             }
+        });
+
+        ButtonWriteMatrixManually.addActionListener(event -> {
+            new ManualMatrixInputDialogue(m -> {
+                this.matrix = m;
+                this.SetTextInInputArea();
+            }).setVisible(true);
         });
 
         this.pack();
